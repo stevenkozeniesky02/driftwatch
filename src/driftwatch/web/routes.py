@@ -5,7 +5,7 @@ from __future__ import annotations
 from dataclasses import asdict
 from typing import Any
 
-from fastapi import APIRouter, Request
+from fastapi import APIRouter, HTTPException, Request
 
 from driftwatch.db import Database
 from driftwatch.engine.anomaly import AnomalyDetector
@@ -42,7 +42,7 @@ def create_router() -> APIRouter:
         db = _get_db(request)
         snapshot = db.get_snapshot(snapshot_id)
         if not snapshot:
-            return {"error": "Snapshot not found"}
+            raise HTTPException(status_code=404, detail="Snapshot not found")
         return {
             "id": snapshot.id,
             "timestamp": snapshot.timestamp.isoformat(),
@@ -68,7 +68,7 @@ def create_router() -> APIRouter:
         before = db.get_snapshot(before_id)
         after = db.get_snapshot(after_id)
         if not before or not after:
-            return {"error": "One or both snapshots not found"}
+            raise HTTPException(status_code=404, detail="One or both snapshots not found")
 
         differ = StateDiffer()
         result = differ.diff(before, after)
@@ -126,7 +126,7 @@ def create_router() -> APIRouter:
         db = _get_db(request)
         snapshot = db.get_snapshot(snapshot_id)
         if not snapshot:
-            return {"error": "Snapshot not found"}
+            raise HTTPException(status_code=404, detail="Snapshot not found")
 
         nodes = []
         edges = []

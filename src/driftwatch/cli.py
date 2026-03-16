@@ -355,4 +355,6 @@ def _parse_interval(interval: str) -> int:
     try:
         return int(interval)
     except ValueError:
-        raise click.BadParameter(f"Invalid interval: {interval}. Use format like 30s, 5m, 1h")
+        raise click.BadParameter(
+            f"Invalid interval: {interval}. Use format like 30s, 5m, 1h"
+        ) from None

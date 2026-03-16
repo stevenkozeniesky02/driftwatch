@@ -50,8 +50,8 @@ class TestSnapshotsAPI:
     def test_get_snapshot_not_found(self, client):
         c, _, _ = client
         resp = c.get("/api/snapshots/nonexistent")
-        assert resp.status_code == 200
-        assert "error" in resp.json()
+        assert resp.status_code == 404
+        assert resp.json()["detail"] == "Snapshot not found"
 
 
 class TestDiffAPI:
@@ -67,8 +67,8 @@ class TestDiffAPI:
     def test_diff_not_found(self, client):
         c, snap1, _ = client
         resp = c.get(f"/api/diff/{snap1.id}/nonexistent")
-        assert resp.status_code == 200
-        assert "error" in resp.json()
+        assert resp.status_code == 404
+        assert resp.json()["detail"] == "One or both snapshots not found"
 
 
 class TestAnomaliesAPI:

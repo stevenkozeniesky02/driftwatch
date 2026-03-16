@@ -55,7 +55,11 @@ class Snapshot:
     def create(resources: list[Resource], metadata: dict[str, Any] | None = None) -> Snapshot:
         now = datetime.now(timezone.utc)
         raw = json.dumps(
-            {"ts": now.isoformat(), "count": len(resources)},
+            {
+                "ts": now.isoformat(),
+                "count": len(resources),
+                "resources": [f"{r.provider}/{r.type}/{r.name}" for r in resources],
+            },
             sort_keys=True,
         )
         snap_id = hashlib.sha256(raw.encode()).hexdigest()[:12]
