@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DriftWatch — Infrastructure Drift Detector</title>
+    <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+    <header>
+        <div class="header-content">
+            <h1><span class="logo">&#9737;</span> DriftWatch</h1>
+            <p class="tagline">Infrastructure Drift Detector</p>
+        </div>
+    </header>
+
+    <nav>
+        <button class="nav-btn active" data-view="timeline">Timeline</button>
+        <button class="nav-btn" data-view="diff">Diff Viewer</button>
+        <button class="nav-btn" data-view="alerts">Alerts</button>
+        <button class="nav-btn" data-view="graph">Dependency Graph</button>
+    </nav>
+
+    <main>
+        <!-- Timeline View -->
+        <section id="view-timeline" class="view active">
+            <h2>Snapshot Timeline</h2>
+            <div id="timeline-list" class="timeline"></div>
+        </section>
+
+        <!-- Diff View -->
+        <section id="view-diff" class="view">
+            <h2>Visual Diff</h2>
+            <div class="diff-controls">
+                <select id="diff-before"></select>
+                <span class="arrow">&#8594;</span>
+                <select id="diff-after"></select>
+                <button id="diff-btn" class="btn">Compare</button>
+            </div>
+            <div id="diff-summary" class="diff-summary"></div>
+            <div id="diff-result" class="diff-container"></div>
+        </section>
+
+        <!-- Alerts View -->
+        <section id="view-alerts" class="view">
+            <h2>Drift Alerts</h2>
+            <div id="alerts-list" class="alerts"></div>
+        </section>
+
+        <!-- Graph View -->
+        <section id="view-graph" class="view">
+            <h2>Resource Dependency Graph</h2>
+            <div class="graph-controls">
+                <select id="graph-snapshot"></select>
+                <button id="graph-btn" class="btn">Load Graph</button>
+            </div>
+            <div id="graph-container" class="graph-area">
+                <canvas id="graph-canvas"></canvas>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>DriftWatch v0.1.0 — Infrastructure drift detection with predictive analysis</p>
+    </footer>
+
+    <script src="/app.js"></script>
+</body>
+</html>

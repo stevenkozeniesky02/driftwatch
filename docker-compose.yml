@@ -1,0 +1,13 @@
+services:
+  driftwatch:
+    build: .
+    ports:
+      - "8000:8000"
+    volumes:
+      - driftwatch-data:/home/driftwatch/.driftwatch
+    environment:
+      - DRIFTWATCH_DB=/home/driftwatch/.driftwatch/driftwatch.db
+    restart: unless-stopped
+
+volumes:
+  driftwatch-data:
